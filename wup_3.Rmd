@@ -18,7 +18,7 @@ Our Goal is to answer this question:
 
 Is there a difference between the alcohol consumed between the row you choose to sit in class?  
 
-Introduction
+#Introduction
 
 $H_0$
 
@@ -28,9 +28,22 @@ $H_A$
 
 there is no relationship between the alcohol consumed and the row you choose to sit in class
 
+
+
 ## Now add in boxplot
 
-  
+seat is catagorical
+alcohol is numerical 
+
+#data summaries
+
+
+```{r}
+boxplot(alcohol~Seat,data=davisdata)
+```
+
+those who sit in the back drink more alcohol on average
+
 ### get fancy  
 
 
