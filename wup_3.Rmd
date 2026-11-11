@@ -14,26 +14,25 @@ require(tidyverse)
 require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
-## Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
-## you choose to sit in??
+Our Goal is to answer this question:
 
-## Now with ggplot - first select the basic data
+Is there a difference between the alcohol consumed between the row you choose to sit in class?  
 
-```{r}
-basicCN <- ggplot(davisdata,aes(y=alcohol,x=Seat))
-```
+Introduction
+
+$H_0$
+
+there is no difference between the alcohol consumed and the row you choose to sit in class 
+
+$H_A$
+
+there is no relationship between the alcohol consumed and the row you choose to sit in class
+
 ## Now add in boxplot
 
-```{r}
-basicCN + geom_boxplot()
-```
-  
   
 ### get fancy  
 
-```{r}
-basicCN + geom_boxplot(notch=TRUE,outlier.color = "red") + stat_boxplot(geom ='errorbar') + labs(title="Fancy notch boxplot \n with 2 lines")
-```
 
 ## Numerical Summarys 
 
