@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r include=FALSE}
 require(tidyverse)
+require(mosaic)
 require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
@@ -44,12 +45,29 @@ boxplot(alcohol~Seat,data=davisdata)
 
 those who sit in the back drink more alcohol on average
 
-### get fancy  
 
+## Numerical Summaries
 
-## Numerical Summarys 
+```{r}
+favstats(alcohol~Seat,data=ucdavis1)
+```
+
+those in the back drink average of 8.55 ounces of alcohol consumed in a week, in the front it was 1.78 and the middle is 3.33
 
 ## Inferential Tests
+
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+the p value is 0.000116 which is less than 0.05 so we reject the null hypothesis and conclude there is a relationship between where you sit in class and how much alcohol you drink.
+
+
+```{r}
+plot(TukeyHSD(model1))
+```
+
+the tukey graph shows there is a difference in alcohol consumption in students who sit front to back and also middle to back. there is no difference between middle and front. 
 
 ## Conclusions
 
