@@ -27,7 +27,7 @@ there is no difference between the alcohol consumed and the row you choose to si
 
 $H_A$
 
-there is no relationship between the alcohol consumed and the row you choose to sit in class
+there is a relationship between the alcohol consumed and the row you choose to sit in class
 
 
 
@@ -72,3 +72,6 @@ the tukey graph shows there is a difference in alcohol consumption in students w
 ## Conclusions
 
 
+Is there a difference between the alcohol consumed between the row you choose to sit in class?  
+
+Based on our results, there is a statistically significant difference in alcohol consumption depending on where students sit in class. Students who sit in the back reported drinking the most alcohol, averaging 8.56 ounces per week, compared to 3.33 ounces for students in the middle and 1.79 ounces for students in the front. Since our p-value of 0.000116 is less than 0.05, we reject the null hypothesis. The Tukey test also showed a significant difference between students sitting in the back and those sitting in the front or middle, but not between the front and middle. Overall, our findings suggest that where students choose to sit in class is associated with how much alcohol they consume, although this does not mean that seating choice causes students to drink more or less.
