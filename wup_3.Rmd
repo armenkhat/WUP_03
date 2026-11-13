@@ -1,6 +1,6 @@
 ---
 title: "Alcohol vs Seat choice"
-author: "Your Name"
+author: "Armen Khatchatrian"
 date: "Fall 2020"
 output: html_document
 ---
@@ -14,30 +14,25 @@ require(tidyverse)
 require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
-## Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
-## you choose to sit in??
+Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
+you choose to sit in??
 
-## Now with ggplot - first select the basic data
+## Now plot the data
 
-```{r}
-basicCN <- ggplot(davisdata,aes(y=alcohol,x=Seat))
-```
+
+
 ## Now add in boxplot
 
-```{r}
-basicCN + geom_boxplot()
-```
   
   
 ### get fancy  
 
-```{r}
-basicCN + geom_boxplot(notch=TRUE,outlier.color = "red") + stat_boxplot(geom ='errorbar') + labs(title="Fancy notch boxplot \n with 2 lines")
-```
 
-## Numerical Summarys 
+## Numerical Summaries 
+
 
 ## Inferential Tests
+
 
 ## Conclusions
 
