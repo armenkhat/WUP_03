@@ -1,6 +1,6 @@
 ---
 title: "Alcohol vs Seat choice"
-author: "Armen Khatchatrian"
+author: "Your Name"
 date: "Fall 2020"
 output: html_document
 ---
@@ -11,29 +11,67 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r include=FALSE}
 require(tidyverse)
+require(mosaic)
 require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
-Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
-you choose to sit in??
+Our Goal is to answer this question:
 
-## Now plot the data
+Is there a difference between the alcohol consumed between the row you choose to sit in class?  
+
+#Introduction
+
+$H_0$
+
+there is no difference between the alcohol consumed and the row you choose to sit in class 
+
+$H_A$
+
+there is a relationship between the alcohol consumed and the row you choose to sit in class
 
 
 
 ## Now add in boxplot
 
-  
-  
-### get fancy  
+seat is catagorical
+alcohol is numerical 
+
+#data summaries
 
 
-## Numerical Summaries 
+```{r}
+boxplot(alcohol~Seat,data=davisdata)
+```
 
+those who sit in the back drink more alcohol on average
+
+
+## Numerical Summaries
+
+```{r}
+favstats(alcohol~Seat,data=ucdavis1)
+```
+
+those in the back drink average of 8.55 ounces of alcohol consumed in a week, in the front it was 1.78 and the middle is 3.33
 
 ## Inferential Tests
 
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+the p value is 0.000116 which is less than 0.05 so we reject the null hypothesis and conclude there is a relationship between where you sit in class and how much alcohol you drink.
+
+
+```{r}
+plot(TukeyHSD(model1))
+```
+
+the tukey graph shows there is a difference in alcohol consumption in students who sit front to back and also middle to back. there is no difference between middle and front. 
 
 ## Conclusions
 
 
+Is there a difference between the alcohol consumed between the row you choose to sit in class?  
+
+Based on our results, there is a statistically significant difference in alcohol consumption depending on where students sit in class. Students who sit in the back reported drinking the most alcohol, averaging 8.56 ounces per week, compared to 3.33 ounces for students in the middle and 1.79 ounces for students in the front. Since our p-value of 0.000116 is less than 0.05, we reject the null hypothesis. The Tukey test also showed a significant difference between students sitting in the back and those sitting in the front or middle, but not between the front and middle. Overall, our findings suggest that where students choose to sit in class is associated with how much alcohol they consume, although this does not mean that seating choice causes students to drink more or less.
