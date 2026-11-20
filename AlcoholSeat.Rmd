@@ -1,0 +1,106 @@
+---
+title: "Alcohol vs Seat choice"
+author: "Armen Khatchatrian"
+date: "Fall 2026"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+require(tidyverse)
+require(tigerstats)
+davisdata <- read.csv(file="UCDavis.csv")
+```
+
+Is there a difference between the alcohol consumed between the row you choose to sit in??
+
+($H_0$):** Mean alcohol consumption is equal across all three seating groups.
+
+($H_1$):** At least one seating group has a different mean alcohol consumption.
+
+
+## Now plot the data
+
+```{r}
+ggplot(davisdata, aes(x = Seat, y = alcohol)) +
+  geom_point(position = position_jitter(width = 0.2),
+             alpha = 0.5) +
+  labs(title = "Alcohol Consumption by Seat Choice",
+       x = "Seat Location",
+       y = "Alcohol Consumption")
+```
+
+
+## Now add in boxplot
+
+```{r}
+ggplot(davisdata, aes(x = Seat, y = alcohol)) +
+  geom_boxplot() +
+  labs(title = "Alcohol Consumption by Seat Choice",
+       x = "Seat Location",
+       y = "Alcohol Consumption")
+```
+
+  
+### get fancy  
+
+```{r}
+ggplot(davisdata, aes(x = Seat, y = alcohol, fill = Seat)) +
+  geom_boxplot(alpha = 0.5, outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.4) +
+  labs(title = "Alcohol Consumption by Seating Location",
+       x = "Seat Location",
+       y = "Alcohol Consumption",
+       fill = "Seat Location") +
+  theme_minimal()
+```
+
+
+## Numerical Summaries 
+
+```{r}
+davisdata %>%
+  group_by(Seat) %>%
+  summarize(
+    count = sum(!is.na(alcohol)),
+    mean = mean(alcohol, na.rm = TRUE),
+    median = median(alcohol, na.rm = TRUE),
+    sd = sd(alcohol, na.rm = TRUE),
+    min = min(alcohol, na.rm = TRUE),
+    max = max(alcohol, na.rm = TRUE)
+  )
+```
+
+The numerical results show that students sitting in the back had the highest average alcohol consumption (9.63), followed by the middle (3.28) and front (1.80). The back row also had the highest median (4) and standard deviation (12.96), indicating greater variation in alcohol consumption. These results suggest that alcohol consumption may differ depending on seating location.
+
+
+## Inferential Tests
+
+```{r}
+# One-way ANOVA
+anova_model <- aov(alcohol ~ Seat, data = davisdata)
+summary(anova_model)
+
+# Welch ANOVA (does not assume equal variances)
+oneway.test(alcohol ~ Seat, data = davisdata)
+
+# Kruskal-Wallis test
+kruskal.test(alcohol ~ Seat, data = davisdata)
+```
+
+($H_0$):** Mean alcohol consumption is equal across all three seating groups.
+
+($H_1$):** At least one seating group has a different mean alcohol consumption.
+
+A one-way ANOVA produced an F-statistic of 9.656 and a p-value of 0.000116. Welch's ANOVA, which does not assume equal variances, produced an F-statistic of 5.705 and a p-value of 0.005219. A Kruskal-Wallis test also showed a significant difference (p = 0.0004113).
+
+Since all three p-values are below 0.05, we reject the null hypothesis. These results suggest that alcohol consumption differs significantly among seating groups. Welch's ANOVA is particularly useful because the groups have noticeably different standard deviations.
+
+## Conclusions
+
+The results suggest that alcohol consumption differs depending on where students choose to sit. Students in the back reported the highest average alcohol consumption (9.63), followed by the middle (3.28) and front (1.80).
+
+The statistical tests showed significant differences among the seating groups. However, this does not mean that sitting in a particular row causes students to drink more or less alcohol. Other factors could influence both seating choice and drinking habits. Overall, the data shows an association between seating location and alcohol consumption.
